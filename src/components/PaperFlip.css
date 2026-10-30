@@ -355,9 +355,28 @@
 @media (max-width: 600px) {
   .paper-section { padding: 3rem 0.5rem; }
   .paper-scene { width: 96vw; }
-  .paper-zoom-wrapper { transform-origin: top center; max-width: 96vw; overflow: hidden; }
+
+  /* Disable zoom transform on mobile — it blocks scroll and touch events */
+  .paper-zoom-wrapper {
+    transform: none !important;
+    max-width: 96vw;
+    overflow: visible;   /* never hidden — allows page scroll through */
+  }
+
   .paper-front, .paper-back { padding: 1.4rem 1.1rem; }
-  .paper-card { min-height: 420px; }
+  .paper-card {
+    min-height: unset;   /* let content determine height on mobile */
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Make back face scrollable on mobile */
+  .paper-back {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    max-height: 80svh;
+  }
+
   .letter-postmark { display: none; }
   .letter-header { flex-direction: column; gap: 0.2rem; }
   .letter-date { font-size: 0.82rem; }

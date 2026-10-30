@@ -13,8 +13,14 @@ export default function PaperFlip({ forwardRef }) {
   const [flipped, setFlipped] = useState(false);
   const [scale, setScale] = useState(0.7);
   const wrapRef = useRef(null);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 600;
 
   useEffect(() => {
+    // On mobile: skip zoom animation — start at full scale, auto-flip disabled
+    if (window.innerWidth <= 600) {
+      setScale(1);
+      return;
+    }
     const onScroll = () => {
       if (!wrapRef.current) return;
       const rect = wrapRef.current.getBoundingClientRect();

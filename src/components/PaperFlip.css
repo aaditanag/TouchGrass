@@ -353,37 +353,100 @@
 
 /* ── Mobile fixes ── */
 @media (max-width: 600px) {
-  .paper-section { padding: 3rem 0.5rem; }
-  .paper-scene { width: 96vw; }
-
-  /* Disable zoom transform on mobile — it blocks scroll and touch events */
-  .paper-zoom-wrapper {
-    transform: none !important;
-    max-width: 96vw;
-    overflow: visible;   /* never hidden — allows page scroll through */
+  .paper-section {
+    padding: 2rem 0.8rem 3rem;
+    align-items: flex-start;
+    min-height: unset;
   }
 
-  .paper-front, .paper-back { padding: 1.4rem 1.1rem; }
-  .paper-card {
-    min-height: unset;   /* let content determine height on mobile */
+  /* Disable desktop zoom wrapper entirely on mobile */
+  .paper-zoom-wrapper { transform: none !important; }
+
+  /* ── Mobile flat layout (replaces 3D card) ── */
+  .mobile-paper-wrap {
+    width: 96vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Tab bar */
+  .mobile-tab-bar {
+    display: flex;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
+    border: 1.5px solid rgba(139,105,20,0.2);
+    border-bottom: none;
+  }
+  .mobile-tab {
+    flex: 1;
+    padding: 0.75rem 0;
+    font-family: var(--font-hand);
+    font-size: 1rem;
+    background: rgba(139,105,20,0.08);
+    border: none;
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    color: var(--ink-mid);
+    transition: background 0.2s, color 0.2s;
+  }
+  .mobile-tab.active {
+    background: #fdfaf2;
+    color: var(--ink-dark);
+    font-weight: 600;
   }
 
-  /* Make back face scrollable on mobile */
-  .paper-back {
-    overflow-y: auto;
+  /* Content area — natural scrolling, no fixed height */
+  .mobile-paper-content {
+    background: #fdfaf2;
+    border: 1.5px solid rgba(139,105,20,0.2);
+    border-radius: 0 0 12px 12px;
+    overflow: visible;
+    /* Smooth native scroll feel */
     -webkit-overflow-scrolling: touch;
-    max-height: 80svh;
   }
 
-  .letter-postmark { display: none; }
-  .letter-header { flex-direction: column; gap: 0.2rem; }
+  /* Override absolute positioning inside mobile content */
+  .mobile-paper-content .paper-front,
+  .mobile-paper-content .paper-back {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    backface-visibility: visible !important;
+    padding: 1.2rem 1rem 1.4rem;
+    overflow: visible;
+    box-shadow: none;
+    border: none;
+    border-radius: 0 0 12px 12px;
+    width: 100%;
+    box-sizing: border-box;
+    /* Prevent text from ever escaping */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    min-height: unset;
+    max-height: unset;
+  }
+
+  /* Kill the decorative inner frame on mobile */
+  .mobile-paper-content .paper-front::after { display: none; }
+
+  /* Font sizes */
+  .letter-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .letter-header h2 { font-size: 1.3rem; white-space: normal; }
   .letter-date { font-size: 0.82rem; }
-  .letter-header h2 { font-size: 1.45rem; }
-  .letter-tagline { font-size: 0.88rem; }
   .letter-body p { font-size: 0.88rem; line-height: 1.72; }
-  .resume-section h3 { font-size: 0.8rem; }
-  .resume-section p,
-  .resume-section li { font-size: 0.78rem; line-height: 1.55; }
+  .resume-header h1 { font-size: 1.35rem; }
+  .resume-section h3 { font-size: 0.78rem; }
+  .resume-entry .role { font-size: 0.82rem; }
+  .resume-entry ul li { font-size: 0.78rem; }
+  .edu-tag { font-size: 0.78rem; }
+  .skill-pill { font-size: 0.75rem; }
+  .letter-postmark { display: none; }
+
+  /* Download & flip-back */
+  .download-outside-wrap { margin-top: 0.8rem; }
+  .resume-bottom-actions { margin-top: 1rem; }
 }

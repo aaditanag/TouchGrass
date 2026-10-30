@@ -1,0 +1,106 @@
+/* ==========================================
+   COLORING SECTION
+   ========================================== */
+.color-section {
+  padding: 5rem 2rem;
+  background: linear-gradient(180deg, #1e3d28 0%, #162b1e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.color-header {
+  text-align: center;
+}
+.color-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--paper-cream);
+  font-style: italic;
+}
+.color-header p {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: rgba(253,246,227,0.65);
+  margin-top: 0.4rem;
+}
+
+/* Color palette */
+.palette {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: rgba(253,246,227,0.08);
+  padding: 0.8rem 1.2rem;
+  border-radius: 50px;
+  border: 1px solid rgba(253,246,227,0.15);
+}
+
+.palette-swatch {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: transform 0.2s, border-color 0.15s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.palette-swatch:hover { transform: scale(1.18); }
+.palette-swatch.selected {
+  border-color: white;
+  transform: scale(1.25);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.5), 0 2px 8px rgba(0,0,0,0.4);
+}
+
+/* SVG coloring canvas */
+.coloring-canvas-wrap {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  max-width: 520px;
+  width: 100%;
+}
+
+.coloring-svg {
+  width: 100%;
+  height: auto;
+  cursor: crosshair;
+}
+
+/* Colorable region */
+.colorable {
+  cursor: pointer;
+  transition: opacity 0.1s;
+  stroke: #2c1810;
+  stroke-width: 1.5;
+}
+.colorable:hover { opacity: 0.85; filter: brightness(1.05); }
+
+/* Instruction hint */
+.color-hint {
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  color: rgba(253,246,227,0.5);
+  text-align: center;
+}
+
+/* Reset button */
+.color-reset {
+  background: none;
+  border: 1.5px solid rgba(253,246,227,0.35);
+  border-radius: 20px;
+  padding: 0.45rem 1.2rem;
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  color: rgba(253,246,227,0.6);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.color-reset:hover {
+  border-color: rgba(253,246,227,0.75);
+  color: rgba(253,246,227,0.9);
+}
+

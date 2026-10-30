@@ -1,0 +1,36 @@
+/* ==========================================
+   PICNIC CARPET SVG SCENE
+   ========================================== */
+.carpet-scene {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 14px 28px rgba(0,0,0,0.22));
+}
+
+/* Paper / photo / mug on carpet — clickable */
+.paper-zone {
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.25s;
+  transform-origin: center;
+}
+.paper-zone:hover {
+  filter: brightness(1.06) drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+.paper-zone:focus-visible {
+  outline: 2px dashed #8b6914;
+  outline-offset: 4px;
+}
+
+.coffee-on-carpet {
+  /* Subtle wobble on hover */
+  transform-origin: 565px 215px;
+}
+.coffee-on-carpet:hover {
+  animation: mugWobble 0.4s ease;
+}
+@keyframes mugWobble {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-3deg); }
+  75%  { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}

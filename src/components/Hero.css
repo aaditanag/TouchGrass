@@ -1,0 +1,362 @@
+/* ==========================================
+   HERO — Park Picnic Scene (Mobile-first)
+   ========================================== */
+.hero {
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: linear-gradient(180deg, #b8e4c9 0%, #7bc47f 35%, #5a9e6f 70%, #4a7c59 100%);
+}
+
+/* Sky */
+.hero-sky {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 44%;
+  background: linear-gradient(180deg, #c8eaf5 0%, #ddf2e4 100%);
+  z-index: 0;
+}
+
+/* Clouds */
+.cloud {
+  position: absolute;
+  background: rgba(255,255,255,0.82);
+  border-radius: 50px;
+  filter: blur(2px);
+  z-index: 1;
+  /* snap-back transition — only active when NOT grabbed */
+  will-change: transform;
+}
+.cloud-released {
+  transition: transform 1.4s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+.cloud-grabbed {
+  transition: transform 0.05s linear;
+  filter: blur(2.5px) brightness(1.08);
+  z-index: 20;
+}
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255,255,255,0.82);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.cloud-1 { width: 70px; height: 20px; top: 8%; left: 8%; animation: cloudDrift 18s linear infinite; }
+.cloud-1::before { width: 32px; height: 32px; top: -16px; left: 10px; }
+.cloud-1::after  { width: 22px; height: 22px; top: -10px; left: 32px; }
+.cloud-2 { width: 50px; height: 15px; top: 16%; left: 55%; animation: cloudDrift 25s linear infinite 4s; }
+.cloud-2::before { width: 24px; height: 24px; top: -12px; left: 6px; }
+.cloud-2::after  { width: 17px; height: 17px; top: -7px; left: 26px; }
+.cloud-3 { width: 90px; height: 22px; top: 7%; left: 68%; animation: cloudDrift 22s linear infinite 9s; }
+.cloud-3::before { width: 36px; height: 36px; top: -18px; left: 14px; }
+.cloud-3::after  { width: 26px; height: 26px; top: -11px; left: 44px; }
+@keyframes cloudDrift {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(20px); }
+}
+
+/* Ground */
+.hero-ground {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 62%;
+  z-index: 1;
+}
+
+/* Trees */
+.tree-group {
+  position: absolute;
+  bottom: 22%;
+  z-index: 2;
+  pointer-events: none;
+}
+.tree-group.left  { left: 0; width: clamp(90px, 18vw, 160px); }
+.tree-group.right { right: 0; width: clamp(90px, 18vw, 160px); }
+.tree-group svg   { width: 100%; height: auto; }
+
+/* Carpet — bottom of hero */
+.carpet-wrapper {
+  position: relative;
+  z-index: 5;
+  width: min(680px, 95vw);
+  margin-bottom: clamp(0.8rem, 2vw, 2rem);
+  padding: 0 0.5rem;
+}
+
+/* ── TAGLINE — positioned in the sky area ── */
+.hero-tagline {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.hero-tagline.loaded {
+  opacity: 1;
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 7vw, 4.4rem);
+  color: var(--ink-dark);
+  line-height: 1.15;
+  font-style: italic;
+  text-shadow: 0 2px 0 rgba(255,255,255,0.5);
+  margin: 0;
+  display: block;
+}
+.hero-title .typing-word {
+  color: var(--carpet-red);
+  font-style: normal;
+  display: inline;
+}
+.hero-title .cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.82em;
+  background: var(--carpet-red);
+  margin-left: 2px;
+  vertical-align: baseline;
+  border-radius: 1px;
+  animation: cursorBlink 0.7s step-end infinite;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.hero-subtitle {
+  font-family: var(--font-hand);
+  font-size: clamp(0.95rem, 3vw, 1.25rem);
+  color: var(--ink-mid);
+  margin-top: 0.45rem;
+  letter-spacing: 0.03em;
+}
+
+/* Nav */
+.hero-nav {
+  display: flex;
+  gap: clamp(0.4rem, 1.5vw, 1.2rem);
+  justify-content: center;
+  flex-wrap: nowrap;
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: max-content;
+  max-width: 96vw;
+}
+.hero-nav a {
+  font-family: var(--font-hand);
+  font-size: clamp(0.78rem, 2.5vw, 1rem);
+  color: var(--ink-dark);
+  text-decoration: none;
+  padding: clamp(0.22rem, 0.8vw, 0.3rem) clamp(0.5rem, 1.8vw, 0.9rem);
+  background: rgba(253,246,227,0.75);
+  border-radius: 20px;
+  border: 1.5px solid rgba(139,105,20,0.3);
+  transition: background 0.2s, transform 0.2s;
+  backdrop-filter: blur(3px);
+  white-space: nowrap;
+}
+.hero-nav a:hover { background: rgba(253,246,227,0.95); transform: translateY(-2px); }
+
+/* Birds */
+.birds {
+  position: absolute;
+  top: 12%;
+  left: 15%;
+  z-index: 3;
+  animation: birdsFloat 6s ease-in-out infinite;
+  width: clamp(50px, 12vw, 80px);
+  pointer-events: none;
+}
+@keyframes birdsFloat {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  33%       { transform: translateY(-8px) translateX(10px); }
+  66%       { transform: translateY(-4px) translateX(-6px); }
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: clamp(0.2rem, 1vw, 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  font-family: var(--font-hand);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  color: rgba(44,24,16,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  animation: bounce 2s ease-in-out infinite;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ── Portfolio peek link ── */
+.portfolio-peek {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-family: var(--font-hand);
+  font-size: clamp(0.8rem, 2.2vw, 1rem);
+  color: var(--ink-mid);
+  text-decoration: none;
+  background: rgba(253,246,227,0.72);
+  border: 1.5px dashed rgba(139,105,20,0.35);
+  border-radius: 20px;
+  padding: 0.3rem 0.9rem;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s, transform 0.2s;
+  pointer-events: all;
+  cursor: pointer;
+}
+.portfolio-peek:hover {
+  background: rgba(253,246,227,0.95);
+  transform: translateY(-2px);
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+
+/* Swipe hint — hidden on desktop, shown on mobile via media query */
+.carpet-swipe-hint {
+  display: none;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-hand);
+  font-size: 0.75rem;
+  color: rgba(44,24,16,0.55);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: swipeHintFade 3s ease-in-out 1.5s forwards;
+  opacity: 0;
+}
+@keyframes swipeHintFade {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ============================================================
+   MOBILE — park scene overhaul (≤ 600px)
+   Desktop is untouched — all rules here are mobile-only
+   ============================================================ */
+@media (max-width: 600px) {
+
+  /* Switch to block so we can absolutely position everything */
+  .hero {
+    min-height: 100svh;
+    display: block;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Sky: 42% of hero ── */
+  .hero-sky { height: 42%; }
+
+  /* ── Ground: 62% from bottom — covers lower half ── */
+  .hero-ground { height: 62%; }
+
+  /* ── Tagline: floats in the sky, bigger font ── */
+  .hero-tagline {
+    position: absolute;
+    top: 13%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: normal;
+    text-align: center;
+    width: 92vw;
+  }
+  .hero-title   { font-size: clamp(2.4rem, 11vw, 3.2rem); }
+  .hero-subtitle { font-size: 1rem; margin-top: 0.5rem; }
+
+  /* ── Nav ── */
+  .hero-nav {
+    position: absolute;
+    top: 0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 0.3rem;
+  }
+  .hero-nav a {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  /* ── Birds stay in sky ── */
+  .birds { top: 10%; left: 12%; }
+
+  /* ── Clouds stay in sky ── */
+  .cloud-1 { top: 7%;  left: 6%; }
+  .cloud-2 { top: 18%; left: 52%; }
+  .cloud-3 { top: 6%;  left: 64%; }
+
+  /* ── Trees: sit at horizon, half visible above carpet ── */
+  .tree-group {
+    position: absolute;
+    bottom: auto;
+    top: 38%;
+  }
+  .tree-group.left  {
+    left: -8px;
+    width: clamp(80px, 24vw, 120px);
+  }
+  .tree-group.right {
+    right: -8px;
+    width: clamp(80px, 24vw, 120px);
+  }
+
+  /* ── Carpet: bigger + higher up ── */
+  .carpet-wrapper {
+    position: absolute;
+    bottom: 18%;
+    left: 0;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .carpet-wrapper::-webkit-scrollbar { display: none; }
+
+  /* SVG at 1100px — much bigger, creates wide pan zone */
+  .carpet-scene {
+    width: 1100px;
+    max-width: none;
+    height: auto;
+    display: block;
+  }
+
+  /* Swipe hint shown on mobile */
+  .carpet-swipe-hint {
+    display: flex !important;
+    bottom: 0.2rem;
+  }
+
+  /* ── Scroll hint ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+  }
+}

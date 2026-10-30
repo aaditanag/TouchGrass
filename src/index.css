@@ -1,0 +1,74 @@
+/* ==========================================
+   AADITA'S PARK PORTFOLIO — Global Styles
+   ========================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --grass-dark:   #4a7c59;
+  --grass-mid:    #5a9e6f;
+  --grass-light:  #7bc47f;
+  --carpet-red:   #c0392b;
+  --carpet-deep:  #96281b;
+  --carpet-fringe:#e8c99a;
+  --paper-cream:  #fdf6e3;
+  --paper-warm:   #f5e6c8;
+  --ink-dark:     #2c1810;
+  --ink-mid:      #4a3728;
+  --stamp-border: #8b6914;
+  --coffee-brown: #6b3a2a;
+  --mug-cream:    #f0ebe0;
+  --sky-light:    #e8f4f8;
+  --font-serif:   'DM Serif Display', 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-hand:    'Caveat', cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--grass-mid);
+  color: var(--ink-dark);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--grass-dark); }
+::-webkit-scrollbar-thumb { background: var(--carpet-red); border-radius: 3px; }
+
+/* Utility */
+.hand { font-family: var(--font-hand); }
+.serif { font-family: var(--font-serif); }
+
+/* Audio toggle */
+.audio-toggle {
+  position: fixed;
+  top: 1.2rem;
+  right: 1.4rem;
+  z-index: 1000;
+  background: rgba(253,246,227,0.85);
+  border: 1.5px solid var(--stamp-border);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  backdrop-filter: blur(4px);
+}
+.audio-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 14px rgba(0,0,0,0.2); }
+

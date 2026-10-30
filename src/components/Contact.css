@@ -1,0 +1,94 @@
+/* ==========================================
+   CONTACT / FOOTER
+   ========================================== */
+.contact-section {
+  padding: 5rem 2rem 3rem;
+  background: linear-gradient(180deg, #162b1e 0%, #0f1f14 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.contact-card {
+  background: rgba(253,246,227,0.06);
+  border: 1px solid rgba(253,246,227,0.15);
+  border-radius: 12px;
+  padding: 2.5rem 3rem;
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.contact-card h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  color: var(--paper-cream);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.contact-card p {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: rgba(253,246,227,0.65);
+  line-height: 1.7;
+  margin-bottom: 1.8rem;
+}
+
+.contact-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-hand);
+  font-size: 0.98rem;
+  color: var(--paper-cream);
+  text-decoration: none;
+  padding: 0.55rem 1.3rem;
+  border-radius: 30px;
+  border: 1.5px solid rgba(253,246,227,0.35);
+  transition: all 0.2s;
+}
+.contact-link:hover {
+  background: rgba(253,246,227,0.12);
+  border-color: rgba(253,246,227,0.7);
+  transform: translateY(-2px);
+}
+.contact-link.email {
+  background: var(--carpet-red);
+  border-color: var(--carpet-red);
+}
+.contact-link.email:hover {
+  background: var(--carpet-deep);
+  border-color: var(--carpet-deep);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 0.88rem;
+  color: rgba(253,246,227,0.3);
+  line-height: 1.8;
+}
+.footer a {
+  color: rgba(253,246,227,0.5);
+  text-decoration: none;
+}
+.footer a:hover { color: rgba(253,246,227,0.8); }
+
+/* Tiny SVG carpet icon in footer */
+.footer-icon {
+  display: block;
+  margin: 0 auto 0.6rem;
+  opacity: 0.3;
+}
+

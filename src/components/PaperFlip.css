@@ -1,0 +1,370 @@
+/* ==========================================
+   PAPER FLIP / ABOUT (Letter + Resume)
+   ========================================== */
+.paper-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem;
+  position: relative;
+  background: linear-gradient(180deg, #4a7c59 0%, #3d6b4a 100%);
+}
+
+.paper-scene {
+  perspective: 1400px;
+  width: min(700px, 94vw);
+}
+
+/* The flippable card */
+.paper-card {
+  width: 100%;
+  min-height: 540px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.paper-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.paper-front, .paper-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.28),
+    0 6px 14px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+}
+
+/* ── FRONT: Elegant Warm Letter ── */
+.paper-front {
+  background: #fdfaf2;
+  border: 1px solid rgba(139, 105, 20, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Subtle decorative inner frame */
+.paper-front::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(192, 57, 43, 0.15);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Postmark stamp top right */
+.letter-postmark {
+  position: absolute;
+  top: 1.8rem;
+  right: 2rem;
+  width: 52px;
+  height: 52px;
+  border: 1.5px dashed rgba(192, 57, 43, 0.5);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(12deg);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.postmark-city {
+  font-family: var(--font-hand);
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  color: var(--carpet-red);
+  font-weight: 700;
+}
+.postmark-icon {
+  font-size: 0.75rem;
+  color: var(--carpet-red);
+  margin-top: -2px;
+}
+
+.paper-front-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.letter-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1.5px solid rgba(139, 105, 20, 0.18);
+  padding-bottom: 0.9rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.letter-header h2 {
+  font-family: var(--font-hand);
+  font-size: clamp(1.8rem, 4vw, 2.3rem);
+  color: var(--ink-dark);
+  margin: 0;
+  line-height: 1;
+}
+.letter-date {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: #8b6914;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.letter-body {
+  flex: 1;
+}
+.letter-body p {
+  font-family: var(--font-body);
+  font-size: clamp(0.92rem, 2.2vw, 1.03rem);
+  line-height: 1.85;
+  color: var(--ink-mid);
+  margin-bottom: 1.15rem;
+}
+.letter-body p strong {
+  color: var(--ink-dark);
+  font-weight: 600;
+}
+
+.flip-hint {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dotted rgba(139, 105, 20, 0.22);
+  display: flex;
+  justify-content: center;
+}
+.flip-hint-badge {
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--carpet-red);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 1rem;
+  background: rgba(192, 57, 43, 0.06);
+  border-radius: 20px;
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  transition: all 0.2s ease;
+}
+.paper-card:hover .flip-hint-badge {
+  background: rgba(192, 57, 43, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ── BACK: Resume ── */
+.paper-back {
+  background: #fdfaf2;
+  border: 1px solid rgba(139, 105, 20, 0.2);
+  transform: rotateY(180deg);
+  overflow-y: auto;
+  max-height: 600px;
+}
+.resume-header {
+  text-align: center;
+  border-bottom: 2px solid #d4c5a0;
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.resume-header h1 {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  color: var(--ink-dark);
+  letter-spacing: 0.05em;
+}
+.resume-header p {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--ink-mid);
+  margin-top: 0.3rem;
+}
+.resume-header .links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+}
+.resume-header .links a {
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  color: var(--carpet-red);
+  text-decoration: none;
+}
+.resume-header .links a:hover { text-decoration: underline; }
+
+.resume-section {
+  margin-bottom: 1.4rem;
+}
+.resume-section h3 {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--carpet-red);
+  border-bottom: 1px solid #d4c5a0;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.8rem;
+}
+.resume-entry {
+  margin-bottom: 0.7rem;
+}
+.resume-entry .title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+.resume-entry .role {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--ink-dark);
+}
+.resume-entry .date {
+  font-family: var(--font-hand);
+  font-size: 0.82rem;
+  color: var(--ink-mid);
+  opacity: 0.7;
+}
+.resume-entry .org {
+  font-family: var(--font-hand);
+  font-size: 0.88rem;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+.resume-entry ul {
+  margin-top: 0.3rem;
+  padding-left: 1.1rem;
+}
+.resume-entry ul li {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--ink-mid);
+  margin-bottom: 0.15rem;
+}
+
+/* Education tags */
+.edu-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.edu-tag {
+  background: #f0e6c8;
+  border: 1px solid #d4c5a0;
+  border-radius: 4px;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: var(--ink-dark);
+}
+
+/* Skills pills */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+.skill-pill {
+  background: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: 20px;
+  padding: 0.2rem 0.65rem;
+  font-family: var(--font-hand);
+  font-size: 0.82rem;
+  color: #2e7d32;
+}
+
+/* Flip back button */
+.flip-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-hand);
+  font-size: 0.95rem;
+  color: var(--carpet-red);
+  background: none;
+  border: 1.5px solid var(--carpet-red);
+  border-radius: 20px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.flip-back-btn:hover { background: rgba(192,57,43,0.08); }
+
+/* Bottom actions row (inside card — flip-back only) */
+.resume-bottom-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+/* Download button sits OUTSIDE the card so clicking never flips */
+.download-outside-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+.download-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: white;
+  background: #4a7c59;
+  border: none;
+  border-radius: 24px;
+  padding: 0.55rem 1.4rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 14px rgba(74,124,89,0.4);
+  animation: fadeInUp 0.4s ease both;
+}
+.download-resume-btn:hover {
+  background: #3d6b4a;
+  transform: translateY(-2px);
+}
+
+/* Scroll-triggered zoom wrapper */
+.paper-zoom-wrapper {
+  transform: scale(var(--paper-scale, 0.7));
+  transition: transform 0.1s linear;
+  transform-origin: center top;
+}
+
+/* ── Mobile fixes ── */
+@media (max-width: 600px) {
+  .paper-section { padding: 3rem 0.5rem; }
+  .paper-scene { width: 96vw; }
+  .paper-zoom-wrapper { transform-origin: top center; max-width: 96vw; overflow: hidden; }
+  .paper-front, .paper-back { padding: 1.4rem 1.1rem; }
+  .paper-card { min-height: 420px; }
+  .letter-postmark { display: none; }
+  .letter-header { flex-direction: column; gap: 0.2rem; }
+  .letter-date { font-size: 0.82rem; }
+  .letter-header h2 { font-size: 1.45rem; }
+  .letter-tagline { font-size: 0.88rem; }
+  .letter-body p { font-size: 0.88rem; line-height: 1.72; }
+  .resume-section h3 { font-size: 0.8rem; }
+  .resume-section p,
+  .resume-section li { font-size: 0.78rem; line-height: 1.55; }
+}

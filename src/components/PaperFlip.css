@@ -307,6 +307,31 @@
 }
 .flip-back-btn:hover { background: rgba(192,57,43,0.08); }
 
+/* Load more / collapse button */
+.load-more-btn {
+  display: block;
+  width: 100%;
+  font-family: var(--font-hand);
+  font-size: 0.92rem;
+  color: var(--ink-mid);
+  background: rgba(139, 105, 20, 0.06);
+  border: 1.5px dashed rgba(139, 105, 20, 0.3);
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  text-align: center;
+  margin: 0.8rem 0 0.4rem;
+  transition: background 0.2s, color 0.2s;
+}
+.load-more-btn:hover {
+  background: rgba(139, 105, 20, 0.14);
+  color: var(--ink-dark);
+}
+.load-more-btn.collapse {
+  margin-top: 0.4rem;
+  margin-bottom: 0.2rem;
+}
+
 /* Bottom actions row (inside card — flip-back only) */
 .resume-bottom-actions {
   display: flex;

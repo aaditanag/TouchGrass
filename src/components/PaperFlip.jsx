@@ -9,7 +9,7 @@ const SKILLS = {
   Tools: ['Git', 'GitHub', 'Postman', 'VS Code', 'Vercel', 'Render', 'n8n'],
 };
 
-/* ── Letter (front) content ── */
+/* ── Letter (front) ── */
 function LetterFront({ onFlip }) {
   return (
     <div className="paper-front">
@@ -29,12 +29,15 @@ function LetterFront({ onFlip }) {
           <p>When I'm not shipping products, you'll find me sketching, stamping letters to friends abroad, or napping with a book on a picnic carpet — exactly like this.</p>
         </div>
         <div className="flip-hint">
-          <span className="flip-hint-badge" onClick={onFlip}>
+          <span
+            className="flip-hint-badge"
+            onClick={e => { e.stopPropagation(); onFlip(); }}
+          >
             <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
               <path d="M2 8 Q8 2 14 8 Q8 14 2 8Z" stroke="currentColor" strokeWidth="1.4" fill="none"/>
               <path d="M10 5 L14 8 L10 11" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            click to flip & view resume →
+            click to flip &amp; view resume →
           </span>
         </div>
       </div>
@@ -42,10 +45,12 @@ function LetterFront({ onFlip }) {
   );
 }
 
-/* ── Resume (back) content ── */
+/* ── Resume (back) with "load more" collapse ── */
 function ResumeBack({ onFlip }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <div className="paper-back">
+    <div className="paper-back" onClick={e => e.stopPropagation()}>
       <div className="resume-header">
         <h1>Aadita Nag</h1>
         <p>Full-Stack Developer · UI/UX Designer · AI/ML Enthusiast</p>
@@ -57,6 +62,7 @@ function ResumeBack({ onFlip }) {
         </div>
       </div>
 
+      {/* Education — always visible */}
       <div className="resume-section">
         <h3>Education</h3>
         <div className="edu-tags">
@@ -67,6 +73,7 @@ function ResumeBack({ onFlip }) {
         </div>
       </div>
 
+      {/* Skills — always visible */}
       <div className="resume-section">
         <h3>Technical Skills</h3>
         {Object.entries(SKILLS).map(([cat, list]) => (
@@ -79,69 +86,94 @@ function ResumeBack({ onFlip }) {
         ))}
       </div>
 
-      <div className="resume-section">
-        <h3>Experience</h3>
-        <div className="resume-entry">
-          <div className="title-row">
-            <span className="role">Frontend & UI/UX Developer</span>
-            <span className="date">Oct '26 – Present</span>
-          </div>
-          <div className="org">Sadhvik AIR · Remote</div>
-          <ul><li>Design and develop UI/UX for products; build brand identities including logos and visual systems.</li></ul>
-        </div>
-        <div className="resume-entry">
-          <div className="title-row">
-            <span className="role">Software Engineer Intern</span>
-            <span className="date">Jan '26 – Aug '26</span>
-          </div>
-          <div className="org">Sthavishtah (VTU-registered startup)</div>
-          <ul>
-            <li>End-to-end development of company website across 2 projects: Intelligent Health Record & Cybersecurity Platform + Raspberry Pi hardware system.</li>
-            <li>Developed AI Yoga Pose Analyser — 96% accuracy.</li>
-            <li>Supported programs reaching ~200 participants per event.</li>
-          </ul>
-        </div>
-      </div>
+      {/* Load more toggle */}
+      {!expanded && (
+        <button
+          className="load-more-btn"
+          onClick={e => { e.stopPropagation(); setExpanded(true); }}
+        >
+          ↓ load more — experience &amp; achievements
+        </button>
+      )}
 
-      <div className="resume-section">
-        <h3>Leadership</h3>
-        <div className="resume-entry">
-          <div className="title-row">
-            <span className="role">Super-Coordinator, Central Events (Paradox)</span>
-            <span className="date">Jan '26 – Jul '26</span>
+      {/* Expanded sections */}
+      {expanded && (
+        <>
+          <div className="resume-section">
+            <h3>Experience</h3>
+            <div className="resume-entry">
+              <div className="title-row">
+                <span className="role">Frontend &amp; UI/UX Developer</span>
+                <span className="date">Oct '26 – Present</span>
+              </div>
+              <div className="org">Sadhvik AIR · Remote</div>
+              <ul><li>Design and develop UI/UX for products; build brand identities including logos and visual systems.</li></ul>
+            </div>
+            <div className="resume-entry">
+              <div className="title-row">
+                <span className="role">Software Engineer Intern</span>
+                <span className="date">Jan '26 – Aug '26</span>
+              </div>
+              <div className="org">Sthavishtah (VTU-registered startup)</div>
+              <ul>
+                <li>End-to-end development of company website across 2 projects: Intelligent Health Record &amp; Cybersecurity Platform + Raspberry Pi hardware system.</li>
+                <li>Developed AI Yoga Pose Analyser — 96% accuracy.</li>
+                <li>Supported programs reaching ~200 participants per event.</li>
+              </ul>
+            </div>
           </div>
-          <div className="org">IIT Madras</div>
-          <ul><li>Led campus-wide ambience planning for Paradox Fest 2026, directing a 25-person team.</li></ul>
-        </div>
-        <div className="resume-entry">
-          <div className="title-row">
-            <span className="role">Web Admin, Pichavaram House</span>
-            <span className="date">Aug '25 – Aug '26</span>
-          </div>
-          <div className="org">IIT Madras</div>
-          <ul><li>Head WebOps Group; oversee 5 subdivisions and all live websites.</li></ul>
-        </div>
-        <div className="resume-entry">
-          <div className="title-row">
-            <span className="role">Treasurer, Coding Club</span>
-            <span className="date">Feb '26 – Present</span>
-          </div>
-          <div className="org">SVIT, Bangalore</div>
-          <ul><li>Hosted HackerRank coding contests with 200+ participants.</li></ul>
-        </div>
-      </div>
 
-      <div className="resume-section">
-        <h3>Achievements</h3>
-        <ul style={{ paddingLeft: '1rem' }}>
-          <li style={{ fontSize: '0.82rem', lineHeight: '1.7', color: 'var(--ink-mid)' }}>GO-BRICS International Hackathon Semi-finalist — Top 69 of 12,000+ teams</li>
-          <li style={{ fontSize: '0.82rem', lineHeight: '1.7', color: 'var(--ink-mid)' }}>3× Hackathon Winner · 1st Place Mini Project Exhibition · 2nd Place Web Craft Design</li>
-          <li style={{ fontSize: '0.82rem', lineHeight: '1.7', color: 'var(--ink-mid)' }}>IIT Madras: 2nd Place Settlement Design Challenge 3.0 · 3rd Place 2.0 · 2nd Place Twist and Turn</li>
-        </ul>
-      </div>
+          <div className="resume-section">
+            <h3>Leadership</h3>
+            <div className="resume-entry">
+              <div className="title-row">
+                <span className="role">Super-Coordinator, Central Events (Paradox)</span>
+                <span className="date">Jan '26 – Jul '26</span>
+              </div>
+              <div className="org">IIT Madras</div>
+              <ul><li>Led campus-wide ambience planning for Paradox Fest 2026, directing a 25-person team.</li></ul>
+            </div>
+            <div className="resume-entry">
+              <div className="title-row">
+                <span className="role">Web Admin, Pichavaram House</span>
+                <span className="date">Aug '25 – Aug '26</span>
+              </div>
+              <div className="org">IIT Madras</div>
+              <ul><li>Head WebOps Group; oversee 5 subdivisions and all live websites.</li></ul>
+            </div>
+            <div className="resume-entry">
+              <div className="title-row">
+                <span className="role">Treasurer, Coding Club</span>
+                <span className="date">Feb '26 – Present</span>
+              </div>
+              <div className="org">SVIT, Bangalore</div>
+              <ul><li>Hosted HackerRank coding contests with 200+ participants.</li></ul>
+            </div>
+          </div>
+
+          <div className="resume-section">
+            <h3>Achievements</h3>
+            <ul style={{ paddingLeft: '1rem' }}>
+              <li style={{ fontSize: '0.82rem', lineHeight: '1.7', color: 'var(--ink-mid)' }}>GO-BRICS International Hackathon Semi-finalist — Top 69 of 12,000+ teams</li>
+              <li style={{ fontSize: '0.82rem', lineHeight: '1.7', color: 'var(--ink-mid)' }}>3× Hackathon Winner · 1st Place Mini Project Exhibition · 2nd Place Web Craft Design</li>
+              <li style={{ fontSize: '0.82rem', lineHeight: '1.7', color: 'var(--ink-mid)' }}>IIT Madras: 2nd Place Settlement Design Challenge 3.0 · 3rd Place 2.0 · 2nd Place Twist and Turn</li>
+            </ul>
+          </div>
+
+          <button
+            className="load-more-btn collapse"
+            onClick={e => { e.stopPropagation(); setExpanded(false); }}
+          >
+            ↑ show less
+          </button>
+        </>
+      )}
 
       <div className="resume-bottom-actions">
-        <button className="flip-back-btn" onClick={onFlip}>← flip back to letter</button>
+        <button
+          className="flip-back-btn"
+          onClick={e => { e.stopPropagation(); onFlip(); }}
+        >← flip back to letter</button>
       </div>
     </div>
   );
@@ -149,8 +181,8 @@ function ResumeBack({ onFlip }) {
 
 /* ── Main component ── */
 export default function PaperFlip({ forwardRef }) {
-  const [flipped, setFlipped] = useState(false);
-  const [scale, setScale]     = useState(0.7);
+  const [flipped, setFlipped]   = useState(false);
+  const [scale, setScale]       = useState(0.7);
   const [isMobile, setIsMobile] = useState(false);
   const wrapRef = useRef(null);
 
@@ -161,8 +193,8 @@ export default function PaperFlip({ forwardRef }) {
 
     const onScroll = () => {
       if (!wrapRef.current) return;
-      const rect = wrapRef.current.getBoundingClientRect();
-      const vh   = window.innerHeight;
+      const rect     = wrapRef.current.getBoundingClientRect();
+      const vh       = window.innerHeight;
       const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh * 0.6)));
       setScale(0.7 + progress * 0.3);
       if (progress > 0.95 && !flipped) setFlipped(true);
@@ -173,11 +205,10 @@ export default function PaperFlip({ forwardRef }) {
 
   const toggle = () => setFlipped(f => !f);
 
-  /* ── MOBILE: flat tab layout, no 3D, natural height ── */
+  /* ── MOBILE: flat tab layout ── */
   if (isMobile) {
     return (
       <section className="paper-section" id="about" ref={forwardRef}>
-        {/* Tab switcher */}
         <div className="mobile-paper-wrap">
           <div className="mobile-tab-bar">
             <button
@@ -208,7 +239,7 @@ export default function PaperFlip({ forwardRef }) {
     );
   }
 
-  /* ── DESKTOP: original 3D flip card ── */
+  /* ── DESKTOP: 3D flip card ── */
   return (
     <section className="paper-section" id="about" ref={forwardRef}>
       <div className="paper-zoom-wrapper" ref={wrapRef} style={{ '--paper-scale': scale }}>
@@ -239,4 +270,3 @@ export default function PaperFlip({ forwardRef }) {
     </section>
   );
 }
-
